@@ -1,7 +1,7 @@
 const ConsoleObserver = () => {
 
-  const update = (model) => {
-    console.log(`The number is ${model.number} and the color is ${model.color}`);
+  const update = ({ number, color }) => {
+    console.log(`The number is ${number} and the color is ${color}`);
   }
 
   return {
