@@ -16,7 +16,10 @@ const container = ElementObserver({
     const newState = {
       ...prevState,
       number: prevState.number + 1,
+      color: parentState.color,
     };
+
+    domElement.style.backgroundColor = newState.color;
     return newState;
   }
 });
