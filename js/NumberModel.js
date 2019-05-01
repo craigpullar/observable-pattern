@@ -1,27 +1,32 @@
-class NumberModel {
-  
-  constructor() {
-    this.number = 0;
-    this.color = 'red';
-    this.observers = [];
+const NumberModel = () => {
+  let state = {
+    number: 0,
+    color: 'red',
+    observers: []
   }
 
-  addObserver(newObserver) {
-    this.observers = [...this.observers, newObserver];
-  }
+  const addObserver = (newObserver) =>{
+      state.observers = [...state.observers, newObserver];
+  };
 
-  notifyObservers() {
-    this.observers.forEach(observer => {
-      observer.update(this);
+  const notifyObservers = () => {
+    state.observers.forEach(observer => {
+      observer.update(state);
     });
   }
 
-  increment() {
+  const increment = () => {
     const colors = ['orange', 'red', 'green', 'blue'];
     const randomColorIndex = Math.floor(Math.random() * colors.length);
     const randomColor = colors[randomColorIndex];
-    this.number += 1;
-    this.color = randomColor;
-    this.notifyObservers();
+    state.number += 1;
+    state.color = randomColor;
+    notifyObservers();
+  }
+
+  return {
+    addObserver,
+    notifyObservers,
+    increment
   }
 }

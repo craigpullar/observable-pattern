@@ -1,13 +1,14 @@
-class HistoryObserver {
-  constructor() {
-    this.colorHistory = [];
-  }
+const HistoryObserver = () => {
+  let _colorHistory = [];
 
-  update(model){
-    this.colorHistory = [ model.color[0].toLowerCase(), ...this.colorHistory];
-
-    const colorsString = this.colorHistory.join(" ");
+  const update = (model) => {
+    _colorHistory = [ model.color[0].toLowerCase(), ..._colorHistory];
+    const colorsString = _colorHistory.join(" ");
     const message = `The most recent 5 colors were: ${colorsString}`;
     console.log(message);
+  }
+
+  return {
+    update
   }
 }

@@ -1,10 +1,12 @@
-class ElementObserver {
-  constructor(elementId) {
-    this.element = document.getElementById(elementId);
+const ElementObserver = (elementId) => {
+  let _element = document.getElementById(elementId);
+
+  const update = (model) => {
+    _element.innerHTML = model.number;
+    _element.style.backgroundColor = model.color;
   }
 
-  update(model) {
-    this.element.innerHTML = model.number;
-    this.element.style.backgroundColor = model.color;
+  return {
+    update
   }
 }
