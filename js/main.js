@@ -1,11 +1,63 @@
+const root = {
+  domElement: document.getElementById("root"),
+  registerChild: () => {},
+};
 const model = NumberModel();
-const elementObserver1 = SquareObserver("elements-observer-1");
-const elementObserver2 = SquareObserver("elements-observer-2");
+const container = ElementObserver({
+  attributes: {
+    id: "elements-observer-1",
+    class: "square"
+  },
+  parent: root,
+  state: {
+    number: 0,
+  },
+  update: (prevState, parentState, domElement) => {
+    const newState = {
+      ...prevState,
+      number: prevState.number + 1,
+    };
+    return newState;
+  }
+});
+
+const numberDisplay = ElementObserver({
+  attributes: {
+    id: "elements-observer-2",
+    class: "number"
+  },
+  parent: container,
+  state: {
+    numbers: []
+  },
+  update: (prevState, parentState, domElement) => {
+    domElement.innerHTML = parentState.number;
+    return prevState;
+  }
+});
+
+const arrayDisplay = ElementObserver({
+  attributes: {
+    id: "elements-observer-2",
+    class: "test"
+  },
+  parent: container,
+  state: {
+    numbers: []
+  },
+  update: (prevState, parentState, domElement) => {
+    const newState = {
+      numbers: [...prevState.numbers, parentState.number]
+    };
+    domElement.innerHTML = newState.numbers.join("/");
+    return newState;
+  }
+});
+
 const consoleObserver1 = ConsoleObserver();
 const historyObserver1 = HistoryObserver();
 
-model.addObserver(elementObserver1);
-model.addObserver(elementObserver2);
+model.addObserver(container);
 model.addObserver(consoleObserver1);
 model.addObserver(historyObserver1);
 model.notifyObservers();
